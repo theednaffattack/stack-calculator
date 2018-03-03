@@ -43,7 +43,7 @@ const Button = ({
   enterButton, special, specialWord, text, onPress,
 }) => (
   <TouchableOpacity
-    onPress={onPress}
+    onPress={() => onPress(text)}
     style={
       enterButton && special
         ? styles.enterButton
