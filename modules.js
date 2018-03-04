@@ -68,10 +68,10 @@ export const toggleNegative = idx => ({
 });
 
 // reducer
-const initialState = { stack: [], inputState: 'replace' };
+const initialState = { stack: ['0', '0', '0'], inputState: 'replace' };
 // button press states: inputState = append | replace | push
 
-export const reducer = (state = { stack: [], inputState: 'replace' }, { type, payload }) => {
+export const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case TOGGLE_NEGATIVE:
       return {
@@ -87,7 +87,10 @@ export const reducer = (state = { stack: [], inputState: 'replace' }, { type, pa
       return initialState;
     case OPERATION:
       return {
-        stack: [`${doOperation(state.stack[0], state.stack[1], payload)}`, ...state.stack.slice(2)],
+        stack: [
+          `${doOperation(state.stack[0] || '0', state.stack[1], payload)}`,
+          ...state.stack.slice(2),
+        ],
         inputState: 'push',
       };
     case ENTER:

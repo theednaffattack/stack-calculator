@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 const baseContainer = {
   alignItems: 'center',
@@ -39,19 +40,31 @@ const styles = StyleSheet.create({
   },
 });
 
-const Button = ({
-  enterButton, special, specialWord, text, onPress,
-}) => (
-  <TouchableOpacity
-    onPress={() => onPress(text)}
-    style={
-      enterButton && special
-        ? styles.enterButton
-        : special ? styles.specialContainer : styles.container
-    }
-  >
-    <Text style={specialWord ? styles.wordButtonText : styles.text}>{text}</Text>
-  </TouchableOpacity>
-);
-
+class Button extends React.Component {
+  render() {
+    const {
+      enterButton, special, specialWord, text, onPress,
+    } = this.props;
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          this.text.rubberBand(400);
+          onPress(text);
+        }}
+        style={
+          enterButton && special
+            ? styles.enterButton
+            : special ? styles.specialContainer : styles.container
+        }
+      >
+        <Animatable.Text
+          ref={ref => (this.text = ref)}
+          style={specialWord ? styles.wordButtonText : styles.text}
+        >
+          {text}
+        </Animatable.Text>
+      </TouchableOpacity>
+    );
+  }
+}
 export default Button;
