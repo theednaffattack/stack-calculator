@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Button from './Button';
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   top: {
-    paddingTop: 20,
+    paddingTop: Platform.OS === 'ios' ? 20 : 20,
   },
   bottom: {
     flex: 1,
